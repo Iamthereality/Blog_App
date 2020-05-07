@@ -1,55 +1,76 @@
-import React from 'react';
-import { FlatList } from 'react-native';
+import React, { useEffect } from 'react';
+import { Text, View, Button, ActivityIndicator } from "react-native";
+import { CommonActions } from '@react-navigation/native';
+
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-import { STYLES } from "../styles/styles";
-import { DATA } from "../data";
-import { Post } from "../components/Post";
+import { useDispatch, useSelector } from "react-redux";
+import { loadPosts } from "../store/actions/postActions";
+
 import { AppHeaderIcon } from "../components/AppHeaderIcon";
+import { PostsList } from "../components/PostsList";
+import { sideMenuButton } from "../components/sideMenuButton";
+import { STYLES, THEME } from "../styles/styles";
 
 export const MainScreen = ({ navigation }) => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(loadPosts());
+    },[dispatch]);
+
+    const allPosts = useSelector((state) => state.posts.allPosts);
+    const loading = useSelector((state) => state.posts.loading);
 
     navigation.setOptions({
-        title: 'My posts',
+        title: 'All posts',
         headerRight: () => (
             <HeaderButtons
                 HeaderButtonComponent={ AppHeaderIcon }
             >
                 <Item
                     title={ 'Take a photo' }
-                    iconName={ 'ios-camera' }
-                    onPress={ () => console.log('camera') }
+                    iconName={ 'ios-add-circle' }
+                    onPress={ () => navigation.dispatch(
+                        CommonActions.navigate({
+                            name: 'Create post'
+                        })
+                    ) }
                 />
             </HeaderButtons>
         ),
-        headerLeft: () => (
-            <HeaderButtons
-                HeaderButtonComponent={ AppHeaderIcon }
-            >
-                <Item
-                    title={ 'Toggle menu' }
-                    iconName={ 'ios-menu' }
-                    onPress={ () => console.log('menu') }
-                />
-            </HeaderButtons>
-        )
+        ...sideMenuButton(navigation)
     });
 
-    const goToPost = (post) => {
-        console.log(post);
-        navigation.navigate('PostScreen', {
-            postID: post.id,
-            date: post.date,
-            liked: post.liked
-        });
-    };
-
     return (
-        <FlatList
-            contentContainerStyle={ STYLES.mainScreen }
-            data={ DATA }
-            keyExtracor={ (post) => post.id.toString() }
-            renderItem={ ({ item }) => <Post post={ item } onOpen={ goToPost }/> }
-        />
+        loading ? (
+                <View style={ STYLES.centeredScreen }>
+                    <ActivityIndicator
+                        color={ THEME.MAIN_COLOR }
+                        size={ 50 }
+                    />
+                </View>
+            ) :
+        allPosts.length > 0 ? (
+            <PostsList
+                data={ allPosts }
+                navigation={ navigation }
+            />
+        ) : (
+            <View style={ STYLES.centeredScreen }>
+                <Text style={ STYLES.centeredText }>
+                    { `You didn't add anything here. Go ahead!` }
+                </Text>
+                <Button
+                    onPress={ () => navigation.dispatch(
+                        CommonActions.navigate({
+                            name: 'Create post'
+                        })
+                    ) }
+                    title={ 'Create new post' }
+                    color={ THEME.MAIN_COLOR }
+                />
+            </View>
+        )
     );
 };

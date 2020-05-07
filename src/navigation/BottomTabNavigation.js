@@ -2,42 +2,60 @@ import React from 'react';
 
 import { Ionicons } from "@expo/vector-icons";
 
-import { createMaterialTopTabNavigator  } from "@react-navigation/material-top-tabs";
+import { createMaterialBottomTabNavigator  } from "@react-navigation/material-bottom-tabs";
 
 import { AllPostsNavigation } from "./AllPostsNavigation";
 import { LikedPostsNavigation } from "./LikedPostsNavigation";
 
-const BottomNavigation = createMaterialTopTabNavigator();
+import { THEME } from "../styles/styles";
+
+const BottomNavigation = createMaterialBottomTabNavigator ();
+
+const tab = (iconName) => {
+    return (
+        {
+            labelStyle: {
+                fontFamily: 'open-regular',
+                fontSize: 10,
+                textTransform: 'capitalize',
+                marginVertical: 0,
+                color: '#000000'
+            },
+            tabBarColor: '#FFFFFF',
+            tabBarIcon: (info) => {
+                return (
+                    <Ionicons
+                        name={ iconName }
+                        size={ 24 }
+                        color={ info.color }
+                    />
+                )
+            }
+        }
+    );
+};
+
 export const BottomTabNavigation = () => (
     <BottomNavigation.Navigator
         initialRouteName={ 'postNavigation' }
-        tabBarPosition={ 'bottom' }
+        shifting={ true }
+        activeColor={ THEME.MAIN_COLOR }
+        inactiveColor={ 'rgba(48, 63, 159, 0.5)' }
     >
         <BottomNavigation.Screen
-            name={ 'all posts' }
+            name={ 'All posts' }
             component={ AllPostsNavigation }
             options={ {
-                showIcon: true,
-                tabBarIcon: () => (
-                    <Ionicons
-                        name={ 'ios-albums' }
-                        size={ 24 }
-                    />
-                )
+                ...tab('ios-albums')
             } }
         />
         <BottomNavigation.Screen
-            name={ 'liked posts' }
+            name={ 'Liked posts' }
             component={ LikedPostsNavigation }
             options={ {
-                showIcon: true,
-                tabBarIcon: () => (
-                    <Ionicons
-                        name={ 'ios-albums' }
-                        size={ 24 }
-                    />
-                )
+                ...tab('ios-heart')
             } }
+
         />
     </BottomNavigation.Navigator>
 );

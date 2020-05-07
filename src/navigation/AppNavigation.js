@@ -1,6 +1,6 @@
 import React from 'react';
-import {BottomTabNavigation} from "./BottomTabNavigation";
+import { SideMenuNavigation } from "./SideMenuNavigation";
 
 export const AppNavigation = () => {
-    return <BottomTabNavigation/>
+    return <SideMenuNavigation/>
 };

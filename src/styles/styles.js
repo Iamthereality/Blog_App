@@ -1,14 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export const STYLES = StyleSheet.create({
-    centered: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
     mainScreen: {
-        // paddingTop: 15,
-        // paddingHorizontal: 5
+        paddingTop: 15,
+        paddingHorizontal: 5
     },
     postScreen: {
         flexGrow: 1,
@@ -18,13 +13,17 @@ export const STYLES = StyleSheet.create({
         paddingBottom: 15
     },
     post: {
-        // marginBottom: 15,
+        marginBottom: 15,
         overflow: 'hidden',
-        // borderRadius: 5
+        borderRadius: 5
+    },
+    postButtonContainer: {
+        width: '100%',
+        paddingHorizontal: 5
     },
     postImg: {
         width: '100%',
-        height: 250
+        height: 200
     },
     postTitleContainer: {
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -52,6 +51,49 @@ export const STYLES = StyleSheet.create({
         fontFamily: 'open-regular',
         fontSize: 22
     },
+    centeredScreen: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    centeredText: {
+        paddingVertical: 20,
+        fontFamily: 'open-regular',
+        fontSize: 18
+    },
+    createPostContainer: {
+        flexGrow: 1,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingVertical: 15,
+        paddingHorizontal: 5
+    },
+    createPostTitle: {
+        width: '100%',
+        fontFamily: 'open-bold',
+        fontSize: 24,
+        textAlign: 'center',
+        marginVertical: 10
+    },
+    savePostButtonContainer: {
+        marginTop: 15,
+        width: '100%',
+    },
+    createPostDescription: {
+        marginVertical: 15,
+        marginHorizontal: 10,
+        borderBottomWidth: 0.5,
+        borderBottomColor: '#303F9F'
+    },
+    aboutScreenText: {
+        textAlign: 'center',
+        fontFamily: 'open-regular',
+        fontSize: 18
+    },
+    aboutVersion: {
+        fontFamily: 'open-bold'
+    }
 });
 
 export const THEME = {

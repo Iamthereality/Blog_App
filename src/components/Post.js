@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-    View,
-    ImageBackground,
-    Text
-} from 'react-native';
+import { View, ImageBackground, Text } from 'react-native';
 
 import { STYLES } from "../styles/styles";
 import Ripple from "react-native-material-ripple";
@@ -12,10 +8,7 @@ export const Post = ({ post, onOpen }) => {
     return (
         <Ripple
             rippleColor={ 'rgba(255, 255, 255, 0.5)' }
-            // rippleOpacity={ 0.7 }
-            // rippleDuration={ 400 }
             onPress={ () => onOpen(post) }
-
         >
             <View style={ STYLES.post }>
                 <ImageBackground

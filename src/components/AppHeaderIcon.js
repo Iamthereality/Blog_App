@@ -1,5 +1,4 @@
 import React from 'react';
-import { Platform } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -10,7 +9,7 @@ export const AppHeaderIcon = props => (
     <HeaderButton
         { ...props }
         IconComponent={ Ionicons }
-        iconSize={ 24 }
-        color={ Platform.OS === 'android' ? '#FFFFFF' : THEME.MAIN_COLOR }
+        iconSize={ 30 }
+        color={ THEME.MAIN_COLOR }
     />
 );

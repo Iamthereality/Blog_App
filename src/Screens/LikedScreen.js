@@ -1,57 +1,41 @@
 import React from 'react';
-import {View, Text, FlatList, Platform} from 'react-native';
+import { Text, View } from "react-native";
 
-import {STYLES, THEME} from "../styles/styles";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { AppHeaderIcon } from "../components/AppHeaderIcon";
-import { DATA } from "../data";
-import { Post } from "../components/Post";
+import { useSelector } from "react-redux";
+
+import { sideMenuButton } from "../components/sideMenuButton";
+import { PostsList } from "../components/PostsList";
+import { STYLES } from "../styles/styles";
 
 export const LikedScreen = ({ navigation }) => {
+
+    const likedPosts = useSelector((state) => state.posts.likedPosts);
+    const allPosts = useSelector((state) => state.posts.allPosts);
+
+
     navigation.setOptions({
         title: 'Liked posts',
-        headerStyle: {
-            backgroundColor: Platform.OS === 'android' ? THEME.ALERT_COLOR : '#FFFFFF'
-        },
-        headerRight: () => (
-            <HeaderButtons
-                HeaderButtonComponent={ AppHeaderIcon }
-            >
-                <Item
-                    title={ 'Take a photo' }
-                    iconName={ 'ios-camera' }
-                    onPress={ () => console.log('camera') }
-                />
-            </HeaderButtons>
-        ),
-        headerLeft: () => (
-            <HeaderButtons
-                HeaderButtonComponent={ AppHeaderIcon }
-            >
-                <Item
-                    title={ 'Toggle menu' }
-                    iconName={ 'ios-menu' }
-                    onPress={ () => console.log('menu') }
-                />
-            </HeaderButtons>
-        )
+        ...sideMenuButton(navigation)
     });
 
-    const goToPost = (post) => {
-        console.log(post);
-        navigation.navigate('PostScreen', {
-            postID: post.id,
-            date: post.date,
-            liked: post.liked
-        });
-    };
-
     return (
-        <FlatList
-            contentContainerStyle={ STYLES.mainScreen }
-            data={ DATA.filter((post) => post.liked === true ) }
-            keyExtracor={ (post) => post.id.toString() }
-            renderItem={ ({ item }) => <Post post={ item } onOpen={ goToPost }/> }
-        />
+        likedPosts.length > 0 ? (
+            <PostsList
+                data={ likedPosts }
+                navigation={ navigation }
+            />
+        ) : allPosts.length > 0 ? (
+            <View style={ STYLES.centeredScreen }>
+                <Text style={ STYLES.centeredText }>
+                    { `You didn't liked anything yet :(` }
+                </Text>
+            </View>
+        ) : (
+            <View style={ STYLES.centeredScreen }>
+                <Text style={ STYLES.centeredText }>
+                    { `There is still no posts you could like` }
+                </Text>
+            </View>
+        )
     );
 };

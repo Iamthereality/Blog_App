@@ -1,28 +1,40 @@
 {
-  "expo": {
-    "name": "BlogApp",
-    "slug": "BlogApp",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
+    "expo": {
+        "name": "BlogApp",
+        "slug": "BlogApp",
+        "privacy": "public",
+        "sdkVersion": "37.0.0",
+        "platforms": [
+            "android"
+        ],
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": [
+            "**/*"
+        ],
+        "ios": {
+            "supportsTablet": true,
+            "bundleIdentifier": "com.nickLysenko.BlogApp",
+            "buildNumber": "1.0.0"
+        },
+        "android": {
+            "package": "com.nickLysenko.BlogApp",
+            "versionCode": 100,
+            "permissions": [
+                "WRITE_EXTERNAL_STORAGE",
+                "CAMERA",
+                "CAMERA_ROLL"
+            ]
+        },
+        "description": ""
     }
-  }
 }
